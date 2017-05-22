@@ -36,12 +36,19 @@ Task("NuGetPack")
       NuGetPack(projectFilePaths, nuGetPackSettings);
 });
 
+Task("DockerBuild")
+    .IsDependentOn("NuGetPack")
+    .Does(() =>
+{
+      StartProcess("docker build");
+});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("NuGetPack");
+    .IsDependentOn("DockerBuild");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
