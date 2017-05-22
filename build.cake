@@ -42,7 +42,7 @@ Task("DockerBuild")
     .IsDependentOn("NuGetPack")
     .Does(() =>
 {
-      DockerBuild (path=.);
+      DockerBuild (path=".");
 });
 
 //////////////////////////////////////////////////////////////////////
