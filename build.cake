@@ -33,7 +33,7 @@ Task("NuGetPack")
     .IsDependentOn("Build")
     .Does(() =>
 {
-      NuGetPack(projectFilePaths, nuGetPackSettings));
+      NuGetPack(projectFilePaths, nuGetPackSettings);
 });
 
 //////////////////////////////////////////////////////////////////////
