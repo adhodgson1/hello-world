@@ -16,19 +16,6 @@ var buildDir = Directory("./bin") + Directory(configuration);
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
-Task("Clean")
-    .Does(() =>
-{
-    CleanDirectory(buildDir);
-});
-
-Task("Restore-NuGet-Packages")
-    .IsDependentOn("Clean")
-    .Does(() =>
-{
-    NuGetRestore("./Hello-World.sln");
-});
-
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
