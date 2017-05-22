@@ -17,7 +17,6 @@ var buildDir = Directory("./bin") + Directory(configuration);
 //////////////////////////////////////////////////////////////////////
 
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
     MSBuild("./Hello-World.sln", settings =>
