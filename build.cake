@@ -4,6 +4,12 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
+var projectFilePaths = GetFiles("./*.csproj");
+var nuGetPackSettings = new NuGetPackSettings
+{   
+  BasePath = Directory("./bin") + Directory(configuration),
+  ArgumentCustomization = args => args.Append("-Prop Configuration=" + configuration)
+};
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -23,12 +29,19 @@ Task("Build")
       settings.SetConfiguration(configuration));
 });
 
+Task("NuGetPack")
+    .IsDependentOn("Build");
+    .Does(() =>
+{
+      NuGetPack(projectFilePaths, nuGetPackSettings));
+});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("NuGetPack");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
